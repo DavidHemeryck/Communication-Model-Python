@@ -1,11 +1,10 @@
-import math
+# TODO Install necessary packages via: conda install --file requirements.txt
+
 import os
 from io import StringIO
 
-import matplotlib.pyplot as plt
 # if using anaconda3 and error execute: conda install --channel conda-forge pillow=5.2.0
 import numpy as np
-import seaborn as sns
 
 import huffman
 import lzw
@@ -55,9 +54,7 @@ t.tic()
 decoded_message = huffman.decode(huffman_tree, encoded_message)
 print("Dec: {}".format(t.toc()))
 
-
 input_lzw = image.get_pixel_seq().copy()
-
 
 # ======================= SOURCE ENCODING ========================
 # ====================== Lempel-Ziv-Welch ========================
@@ -69,7 +66,6 @@ print("Enc: {}".format(t.toc()))
 t.tic()
 decoded_msg = lzw.decode(encoded_msg)
 print("Enc: {0:.4f}".format(t.toc()))
-
 
 uint8_stream = np.array(decoded_msg, dtype=np.uint8)
 # ====================== CHANNEL ENCODING ========================
@@ -112,24 +108,22 @@ received_message_uint8 = util.bit_to_uint8(received_message)
 
 decoded_message = StringIO()
 
-
 t.tic()
 
 # TODO Iterate over the received messages and compare with the original RS-encoded messages
 for cnt, (block, original_block) in enumerate(zip(received_message_uint8, rs_encoded_message_uint8)):
     try:
         decoded, ecc = coder.decode_fast(block, return_string=True)
+        assert coder.check(decoded + ecc), "Check not correct"
+        decoded_message.write(str(decoded))
     except rs.RSCodecError as error:
         diff_symbols = len(block) - (original_block == block).sum()
         print(
             F"Error occured after {cnt} iterations of {len(received_message_uint8)}")
         print(F"{diff_symbols} different symbols in this block")
-    assert coder.check(decoded + ecc), "Check not correct"
-    decoded_message.write(str(decoded))
 
 t.toc_print()
 
 print("DECODING COMPLETE")
-
 
 # TODO after everything works, try to simulate the communication model as specified in the assingment
