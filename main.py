@@ -76,7 +76,7 @@ uint8_stream = np.array(decoded_msg, dtype=np.uint8)
 # ======================== Reed-Solomon ==========================
 
 # as we are working with symbols of 8 bits
-# choose n such that m is divisable by 8 when n=2^m−1
+# choose n such that m is divisible by 8 when n=2^m−1
 # Example: 255 + 1 = 2^m -> m = 8
 n = 255  # code_word_length in symbols
 k = 223  # message_length in symbols
@@ -132,4 +132,4 @@ t.toc_print()
 print("DECODING COMPLETE")
 
 
-# TODO after everything works, try to simulate the communication model as specified in the assingment
+# TODO after everything works, try to simulate the communication model as specified in the assignment
