@@ -44,9 +44,9 @@ class ImageSource:
         return self.pixel_seq
 
     def to_bitmap(self, pixel_seq=None):
-        if pixel_seq is None:
-            pixel_seq = self.pixel_seq
-        return pixel_seq.reshape((self.height, self.width, self.num_of_channels))
+        if self.pixel_seq is None:
+            self.pixel_seq = self.pixel_seq
+        return self.pixel_seq.reshape((self.height, self.width, self.num_of_channels))
 
     def show(self):
         self.img.show()
