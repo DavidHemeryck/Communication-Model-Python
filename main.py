@@ -79,7 +79,7 @@ k = 223  # message_length in symbols
 
 coder = rs.RSCoder(n, k)
 
-# TODO generate a matrix with k rows (for each message)
+# TODO generate a matrix with k symbols per rows (for each message)
 # TODO afterwards you can iterate over each row to encode the message
 messages = "TODO"
 
