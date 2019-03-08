@@ -42,7 +42,7 @@ t.tic()
 # TODO Determine the number of occurrences of the source or use a fixed huffman_freq
 huffman_freq = "TODO"
 huffman_tree = huffman.Tree(huffman_freq)
-print(F"Generating the Huffman Tree took {t.toc_print()}")
+print(F"Generating the Huffman Tree took {t.toc_str()}")
 
 t.tic()
 # TODO print-out the codebook and validate the codebook (include your findings in the report)
