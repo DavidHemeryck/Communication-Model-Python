@@ -4,6 +4,6 @@ numpy
 numpydoc
 pandas
 pep8
-Pillow==5.2.0
+Pillow==6.2.0
 scipy
 seaborn
