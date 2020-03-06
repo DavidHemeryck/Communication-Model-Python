@@ -16,7 +16,7 @@ def bit_to_uint8(bit_list):
     """Converts a bit string to a numpy uint8 array
 
     Arguments:
-        bit_list {str} -- Bit list expecting string, otherwise the list is first converted to a but string
+        bit_list {str} -- Bit list expecting string, otherwise the list is first converted to a btt string
 
     Returns:
         np.ndarray -- uint8 typed ndarray
@@ -31,6 +31,26 @@ def bit_to_uint8(bit_list):
 
     return np.array([int(bits, 2) for bits in splitted_list], dtype=np.uint8)
 
+def bit_to_uint8_fast(bit_list):
+    """Converts a bit string to a numpy uint8 array
+
+    Arguments:
+        bit_list {str} -- Bit list expecting string, otherwise the list is first converted to a btt string
+
+    Returns:
+        np.ndarray -- uint8 typed ndarray
+    """
+
+    if type(bit_list) is str:
+        bit_list = np.array([int(x) for x in bit_list])
+
+    assert len(bit_list) % 8 == 0, "Provided bits length should be divisable by 8"
+
+    bit_matrix = np.resize(resize, (-1, 8))
+
+    uint8_list = np.packbits(bit_matrix)
+
+    return uint8_list
 
 class Time:
     def __init__(self):
