@@ -2,6 +2,7 @@
 A Python implementation of the Lempel-Ziv-X compression algorithms.
 '''
 from io import StringIO
+
 import numpy as np
 
 __all__ = ["encode", "decode"]

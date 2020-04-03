@@ -1,9 +1,9 @@
 from __future__ import print_function
 
-import itertools
 import hashlib
-
+import itertools
 import sys
+
 if sys.version_info < (2, 7):
     import unittest2 as unittest # to get unittest.skip() in Python < 2.7 we need to use unittest2
 else:

@@ -1,12 +1,20 @@
-from PIL import Image  # Python Imaging Library https://pypi.org/project/Pillow/
 import matplotlib.pyplot as plt
 import numpy as np
+from PIL import Image  # Python Imaging Library https://pypi.org/project/Pillow/
 
 
 class ImageSource:
 
     def __init__(self):
         self.pixel_seq = None
+        self.img_path = None
+        self.img = None
+        self.mode = None
+        self.num_of_channels = None
+        self.width = None
+        self.height = None
+        self.bitmap = None
+        self.channels = None
 
     def load_from_file(self, img_path):
         """Loads the image from a file via PIL
@@ -56,9 +64,9 @@ class ImageSource:
         for i, channel in enumerate(self.channels):
             plt.hist(channel.ravel(), bins=range(255), fc=colors[i])
         plt.show()
-    
+
     def from_bitmap(self, bitmap):
-        self.img = Image.fromarray(bitamp,self.mode)
+        self.img = Image.fromarray(bitmap, self.mode)
 
     def __str__(self):
         return f"""

@@ -1,8 +1,8 @@
 import unittest
-import itertools
 
 from .._compat import _range
 from ..ff import GF2int, init_lut, find_prime_polynomials
+
 
 class TestGF2int(unittest.TestCase):
     def setUp(self):

@@ -8,11 +8,11 @@
 # to understand the basic mathematical notions behind finite fields, see the excellent tutorial: http://research.swtch.com/field
 
 import cython
-cimport cython
+from cpython cimport
+
+array
 
 from ._compat import _range
-
-from cpython cimport array
 
 # Galois Field's characteristic, by default, it's GF(2^8) == GF(256)
 # Note that it's -1 (thus for GF(2^8) it's really 255 and not 256) because this is historically tied to the definition of Reed-Solomon codes: since the 0 and 256 values are impossible, we effectively have only 255 possible values. But later were defined (singly) extended Reed-Solomon codes, which include the 0 and thus 256 values, and then doubly extended Reed-Solomon codes which include the 0 and 256 == infinity.

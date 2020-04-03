@@ -1,5 +1,7 @@
-import numpy as np
 import math
+
+import numpy as np
+
 
 def channel(message:str, mode=None, ber=None, errasures=None) -> str:
     """Simulate a channel where bits are flipped. 

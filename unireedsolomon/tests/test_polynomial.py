@@ -1,7 +1,8 @@
 import unittest
 
-from ..polynomial import Polynomial
 from ..ff import GF2int, init_lut
+from ..polynomial import Polynomial
+
 
 def map_GF2int(L):
     return list(map(GF2int, L))

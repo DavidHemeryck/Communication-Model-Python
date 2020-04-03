@@ -5,7 +5,6 @@
 # See LICENSE.txt for license terms
 
 import cython
-cimport cython
 
 from ._compat import _range, _StringIO
 

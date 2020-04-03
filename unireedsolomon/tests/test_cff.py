@@ -1,5 +1,4 @@
 import unittest
-import itertools
 
 # Skip this whole module test if running under PyPy (incompatible with Cython)
 try:
