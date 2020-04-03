@@ -19,10 +19,7 @@ def uintx_to_bit(uintx_list, width=8):
     return "".join([np.binary_repr(x, width=width) for x in uintx_list])
 
 
-# def _chunks(s, n):
-#     """Produce `n`-character chunks from `s`."""
-#     for start in range(0, len(s), n):
-#         yield s[start:start + n]
+
 
 
 # def bit_to_uint8(bit_list):
@@ -43,6 +40,7 @@ def uintx_to_bit(uintx_list, width=8):
 #     chunked_list = [chunk for chunk in _chunks(bit_list, 8)]
 #
 #     return np.array([int(bits, 2) for bits in chunked_list], dtype=np.uint8)
+
 def bit_to_uint8(bit_list):
     return bit_to_uintx(bit_list, width=8)
 
@@ -57,6 +55,11 @@ def bit_to_uintx(bit_list, width=8):
         np.ndarray -- uint8 typed ndarray
     """
 
+    def _chunks(s, n):
+        """Produce `n`-character chunks from `s`."""
+        for start in range(0, len(s), n):
+            yield s[start:start + n]
+
     if width == 8:
         _type = np.uint8
     elif width == 16:
@@ -68,20 +71,14 @@ def bit_to_uintx(bit_list, width=8):
     else:
         ValueError(f"Width ({width}) not supported")
 
-    if type(bit_list) is str or type(bit_list[0]) is str:
-        bit_list = np.array([1 if x == '1' else 0 for x in bit_list])
+    if type(bit_list) is not str or type(bit_list[0]) is not str:
+        bit_list = "".join([x for x in bit_list])
 
     assert len(bit_list) % width == 0, f"Provided bits length should be divisible by {width}"
 
-    bit_matrix = np.resize(bit_list, (-1, width))
+    uintx_list = np.array([int(chunk, 2) for chunk in _chunks(bit_list, width)], dtype=_type)
 
-    if width == 8:
-        # we can use the optimized np packbits function
-        uintx_list = np.packbits(bit_matrix)
-    else:
-        uintx_list = np.array([int(x, width) for x in bit_matrix], dtype=_type)
-
-    return uintx_list
+    return uintx_list.flatten()
 
 
 # def bit_to_uint8_fast(bit_list):
