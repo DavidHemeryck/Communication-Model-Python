@@ -41,8 +41,10 @@ def uintx_to_bit(uintx_list, width=8):
 def bit_to_uint8(bit_list):
     return bit_to_uintx(bit_list, width=8)
 
+
 def bit_to_uint16(bit_list):
     return bit_to_uintx(bit_list, width=16)
+
 
 def bit_to_uint32(bit_list):
     return bit_to_uintx(bit_list, width=32)
