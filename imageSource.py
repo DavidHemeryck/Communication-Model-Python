@@ -66,7 +66,9 @@ class ImageSource:
         plt.show()
 
     def from_bitmap(self, bitmap):
-        self.img = Image.fromarray(bitmap, self.mode)
+        self.pixel_seq = bitmap.ravel()
+        self.bitmap = self.pixel_seq.reshape((self.height, self.width, self.num_of_channels))
+        self.img = Image.fromarray(self.bitmap, self.mode)
         self.img_path = "bitmap"
 
     def __str__(self):
