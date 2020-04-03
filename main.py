@@ -16,14 +16,14 @@ from util import Time
 
 # ========================= SOURCE =========================
 # TODO Select an image
-IMG_NAME = 'stack.jpg'
+IMG_NAME = 'image.jpg'
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 IMG_PATH = os.path.join(dir_path, IMG_NAME)  # use absolute path
 
 print(F"Loading {IMG_NAME} at {IMG_PATH}")
-image = ImageSource().load_from_file(IMG_PATH)
-print(image)
+img = ImageSource().load_from_file(IMG_PATH)
+print(img)
 # uncomment if you want to display the loaded image
 # image.show()
 # uncomment if you want to show the histogram of the colors
@@ -54,7 +54,7 @@ t.tic()
 decoded_message = huffman.decode(huffman_tree, encoded_message)
 print("Dec: {}".format(t.toc()))
 
-input_lzw = image.get_pixel_seq().copy()
+input_lzw = img.get_pixel_seq().copy()
 
 # ======================= SOURCE ENCODING ========================
 # ====================== Lempel-Ziv-Welch ========================
