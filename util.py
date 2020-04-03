@@ -19,10 +19,10 @@ def uintx_to_bit(uintx_list, width=8):
     return "".join([np.binary_repr(x, width=width) for x in uintx_list])
 
 
-def _chunks(s, n):
-    """Produce `n`-character chunks from `s`."""
-    for start in range(0, len(s), n):
-        yield s[start:start + n]
+# def _chunks(s, n):
+#     """Produce `n`-character chunks from `s`."""
+#     for start in range(0, len(s), n):
+#         yield s[start:start + n]
 
 
 # def bit_to_uint8(bit_list):
@@ -68,7 +68,7 @@ def bit_to_uintx(bit_list, width=8):
     else:
         ValueError(f"Width ({width}) not supported")
 
-    if type(bit_list) is str:
+    if type(bit_list) is str or type(bit_list[0]) is str:
         bit_list = np.array([1 if x == '1' else 0 for x in bit_list])
 
     assert len(bit_list) % width == 0, f"Provided bits length should be divisible by {width}"
