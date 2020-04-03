@@ -56,6 +56,9 @@ class ImageSource:
         for i, channel in enumerate(self.channels):
             plt.hist(channel.ravel(), bins=range(255), fc=colors[i])
         plt.show()
+    
+    def from_bitmap(self, bitmap):
+        self.img = Image.fromarray(bitamp,self.mode)
 
     def __str__(self):
         return f"""
