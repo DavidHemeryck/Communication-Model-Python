@@ -46,6 +46,7 @@ def _chunks(s, n):
 def bit_to_uint8(bit_list):
     return bit_to_uintx(bit_list, width=8)
 
+
 def bit_to_uintx(bit_list, width=8):
     """Converts a bit string to a numpy uint8 array
 
@@ -56,7 +57,7 @@ def bit_to_uintx(bit_list, width=8):
         np.ndarray -- uint8 typed ndarray
     """
 
-    if width  == 8:
+    if width == 8:
         _type = np.uint8
     elif width == 16:
         _type = np.uint16
@@ -74,7 +75,7 @@ def bit_to_uintx(bit_list, width=8):
 
     bit_matrix = np.resize(bit_list, (-1, width))
 
-    if width ==8:
+    if width == 8:
         # we can use the optimized np packbits function
         uintx_list = np.packbits(bit_matrix)
     else:
@@ -83,26 +84,26 @@ def bit_to_uintx(bit_list, width=8):
     return uintx_list
 
 
-def bit_to_uint8_fast(bit_list):
-    """Converts a bit string to a numpy uint8 array
-
-    Arguments:
-        bit_list {str} -- Bit list expecting string, otherwise the list is first converted to a btt string
-
-    Returns:
-        np.ndarray -- uint8 typed ndarray
-    """
-
-    if type(bit_list) is str:
-        bit_list = np.array([int(x) for x in bit_list])
-
-    assert len(bit_list) % 8 == 0, "Provided bits length should be divisible by 8"
-
-    bit_matrix = np.resize(bit_list, (-1, 8))
-
-    uint8_list = np.packbits(bit_matrix)
-
-    return uint8_list
+# def bit_to_uint8_fast(bit_list):
+#     """Converts a bit string to a numpy uint8 array
+#
+#     Arguments:
+#         bit_list {str} -- Bit list expecting string, otherwise the list is first converted to a btt string
+#
+#     Returns:
+#         np.ndarray -- uint8 typed ndarray
+#     """
+#
+#     if type(bit_list) is str:
+#         bit_list = np.array([int(x) for x in bit_list])
+#
+#     assert len(bit_list) % 8 == 0, "Provided bits length should be divisible by 8"
+#
+#     bit_matrix = np.resize(bit_list, (-1, 8))
+#
+#     uint8_list = np.packbits(bit_matrix)
+#
+#     return uint8_list
 
 
 class Time:
