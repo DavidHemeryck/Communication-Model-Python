@@ -4,13 +4,25 @@ import numpy as np
 
 
 def uint8_to_bit(uint8_list):
-    return "".join([np.binary_repr(x, width=8) for x in uint8_list])
+    return uintx_to_bit(uint8_list, 8)
 
 
-def chunks(s, n):
+def uint16_to_bit(uint16_list):
+    return uintx_to_bit(uint16_list, 16)
+
+
+def uint32_to_bit(uint32_list):
+    return uintx_to_bit(uint32_list, 32)
+
+
+def uintx_to_bit(uintx_list, width=8):
+    return "".join([np.binary_repr(x, width=width) for x in uintx_list])
+
+
+def _chunks(s, n):
     """Produce `n`-character chunks from `s`."""
     for start in range(0, len(s), n):
-        yield s[start:start+n]
+        yield s[start:start + n]
 
 
 def bit_to_uint8(bit_list):
@@ -26,11 +38,12 @@ def bit_to_uint8(bit_list):
     if type(bit_list) is not str:
         bit_list = "".join([x for x in bit_list])
 
-    assert len(bit_list) % 8 == 0, "Provided bits length should be divisable by 8"
+    assert len(bit_list) % 8 == 0, "Provided bits length should be divisible by 8"
 
-    splitted_list = [chunk for chunk in chunks(bit_list, 8)]
+    chunked_list = [chunk for chunk in _chunks(bit_list, 8)]
 
-    return np.array([int(bits, 2) for bits in splitted_list], dtype=np.uint8)
+    return np.array([int(bits, 2) for bits in chunked_list], dtype=np.uint8)
+
 
 def bit_to_uint8_fast(bit_list):
     """Converts a bit string to a numpy uint8 array
@@ -47,11 +60,12 @@ def bit_to_uint8_fast(bit_list):
 
     assert len(bit_list) % 8 == 0, "Provided bits length should be divisable by 8"
 
-    bit_matrix = np.resize(resize, (-1, 8))
+    bit_matrix = np.resize(bit_list, (-1, 8))
 
     uint8_list = np.packbits(bit_matrix)
 
     return uint8_list
+
 
 class Time:
     def __init__(self):
@@ -59,11 +73,15 @@ class Time:
 
     def tic(self):
         self.t = time.time()
+        return self.t
 
-    def toc(self):
-        assert self.t is not None, "Call tic() before toc()"
-        diff = time.time()-self.t
-        self.t = None
+    def toc(self, t=None):
+        if t is None:
+            assert self.t is not None, "Call tic() before toc()"
+            diff = time.time() - self.t
+            self.t = None
+        else:
+            diff = time.time() - t
         return diff
 
     def toc_str(self):
