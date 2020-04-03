@@ -19,9 +19,6 @@ def uintx_to_bit(uintx_list, width=8):
     return "".join([np.binary_repr(x, width=width) for x in uintx_list])
 
 
-
-
-
 # def bit_to_uint8(bit_list):
 #     """Converts a bit string to a numpy uint8 array
 #
@@ -43,6 +40,12 @@ def uintx_to_bit(uintx_list, width=8):
 
 def bit_to_uint8(bit_list):
     return bit_to_uintx(bit_list, width=8)
+
+def bit_to_uint16(bit_list):
+    return bit_to_uintx(bit_list, width=16)
+
+def bit_to_uint32(bit_list):
+    return bit_to_uintx(bit_list, width=32)
 
 
 def bit_to_uintx(bit_list, width=8):
