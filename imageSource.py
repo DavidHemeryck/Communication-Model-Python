@@ -67,6 +67,7 @@ class ImageSource:
 
     def from_bitmap(self, bitmap):
         self.img = Image.fromarray(bitmap, self.mode)
+        self.img_path = "bitmap"
 
     def __str__(self):
         return f"""
