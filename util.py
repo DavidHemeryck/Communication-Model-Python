@@ -43,6 +43,8 @@ def _chunks(s, n):
 #     chunked_list = [chunk for chunk in _chunks(bit_list, 8)]
 #
 #     return np.array([int(bits, 2) for bits in chunked_list], dtype=np.uint8)
+def bit_to_uint8(bit_list):
+    return bit_to_uintx(bit_list, width=8)
 
 def bit_to_uintx(bit_list, width=8):
     """Converts a bit string to a numpy uint8 array
