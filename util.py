@@ -25,7 +25,26 @@ def _chunks(s, n):
         yield s[start:start + n]
 
 
-def bit_to_uint8(bit_list):
+# def bit_to_uint8(bit_list):
+#     """Converts a bit string to a numpy uint8 array
+#
+#     Arguments:
+#         bit_list {str} -- Bit list expecting string, otherwise the list is first converted to a btt string
+#
+#     Returns:
+#         np.ndarray -- uint8 typed ndarray
+#     """
+#
+#     if type(bit_list) is not str:
+#         bit_list = "".join([x for x in bit_list])
+#
+#     assert len(bit_list) % 8 == 0, "Provided bits length should be divisible by 8"
+#
+#     chunked_list = [chunk for chunk in _chunks(bit_list, 8)]
+#
+#     return np.array([int(bits, 2) for bits in chunked_list], dtype=np.uint8)
+
+def bit_to_uintx(bit_list, width=8):
     """Converts a bit string to a numpy uint8 array
 
     Arguments:
@@ -35,14 +54,31 @@ def bit_to_uint8(bit_list):
         np.ndarray -- uint8 typed ndarray
     """
 
-    if type(bit_list) is not str:
-        bit_list = "".join([x for x in bit_list])
+    if width  == 8:
+        _type = np.uint8
+    elif width == 16:
+        _type = np.uint16
+    elif width == 32:
+        _type = np.uint32
+    elif width == 64:
+        _type = np.uint64
+    else:
+        ValueError(f"Width ({width}) not supported")
 
-    assert len(bit_list) % 8 == 0, "Provided bits length should be divisible by 8"
+    if type(bit_list) is str:
+        bit_list = np.array([1 if x == '1' else 0 for x in bit_list])
 
-    chunked_list = [chunk for chunk in _chunks(bit_list, 8)]
+    assert len(bit_list) % width == 0, f"Provided bits length should be divisible by {width}"
 
-    return np.array([int(bits, 2) for bits in chunked_list], dtype=np.uint8)
+    bit_matrix = np.resize(bit_list, (-1, width))
+
+    if width ==8:
+        # we can use the optimized np packbits function
+        uintx_list = np.packbits(bit_matrix)
+    else:
+        uintx_list = np.array([int(x, width) for x in bit_matrix], dtype=_type)
+
+    return uintx_list
 
 
 def bit_to_uint8_fast(bit_list):
@@ -58,7 +94,7 @@ def bit_to_uint8_fast(bit_list):
     if type(bit_list) is str:
         bit_list = np.array([int(x) for x in bit_list])
 
-    assert len(bit_list) % 8 == 0, "Provided bits length should be divisable by 8"
+    assert len(bit_list) % 8 == 0, "Provided bits length should be divisible by 8"
 
     bit_matrix = np.resize(bit_list, (-1, 8))
 
