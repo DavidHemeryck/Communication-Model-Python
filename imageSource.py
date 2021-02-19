@@ -64,8 +64,15 @@ class ImageSource:
         for i, channel in enumerate(self.channels):
             plt.hist(channel.ravel(), bins=range(255), fc=colors[i])
         plt.show()
+    
+    def _clear(self):
+        self.bitmap = None
+        self.img = None
+        self.pixel_seq = None
+        self.img_path = None
 
     def from_bitmap(self, bitmap):
+        self._clear()
         self.pixel_seq = bitmap.ravel()
         self.bitmap = self.pixel_seq.reshape((self.height, self.width, self.num_of_channels))
         self.img = Image.fromarray(self.bitmap, self.mode)
