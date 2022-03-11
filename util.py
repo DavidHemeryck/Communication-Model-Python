@@ -77,7 +77,7 @@ def bit_to_uintx(bit_list, width=8):
         ValueError(f"Width ({width}) not supported")
 
     if type(bit_list) is not str or type(bit_list[0]) is not str:
-        bit_list = "".join([x for x in bit_list])
+        bit_list = "".join([str(x) for x in bit_list])
 
     assert len(bit_list) % width == 0, f"Provided bits length should be divisible by {width}"
 
